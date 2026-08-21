@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "snakeGamer\\x64\\Debug\\snakeGamer.obj",
+            "outputs": [
+                "snakeGamer\\x64\\Debug\\snakeGamer.cpp.obj.dt.module.json",
+                "snakeGamer\\x64\\Debug\\snakeGamer.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\guilh\\source\\repos\\snakeGamer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F00C4131-876A-430B-80D1-85F4FDB86EC1}|snakeGamer.vcxproj|C:\\Users\\guilh\\source\\repos\\snakeGamer\\snakeGamer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F00C4131-876A-430B-80D1-85F4FDB86EC1}|snakeGamer.vcxproj|solutionrelative:snakeGamer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "snakeGamer.cpp",
+              "DocumentMoniker": "C:\\Users\\guilh\\source\\repos\\snakeGamer\\snakeGamer.cpp",
+              "RelativeDocumentMoniker": "snakeGamer.cpp",
+              "ToolTip": "C:\\Users\\guilh\\source\\repos\\snakeGamer\\snakeGamer.cpp",
+              "RelativeToolTip": "snakeGamer.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-08-18T16:19:46.908Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

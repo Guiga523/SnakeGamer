@@ -1,0 +1,29 @@
+# Pastas de configuração local do Visual Studio
+.vs/
+*.user
+*.suo
+*.slnx
+
+# Pastas de compilação (Executáveis e Debug)
+x64/
+x86/
+Debug/
+Release/
+Out/
+
+# Arquivos temporários e de compilação do C++
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.tlog
+*.log
+*.lastbuildstate
+
+# Arquivos de cache
+*.cache
+*.ipch
+
+# Pacotes (caso o VS tenha baixado dependências locais)
+packages/

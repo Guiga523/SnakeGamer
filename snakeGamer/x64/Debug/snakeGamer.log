@@ -1,7 +1,0 @@
-﻿  snakeGamer.cpp
-C:\Users\guilh\source\repos\snakeGamer\snakeGamer.cpp(55,15): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\guilh\source\repos\snakeGamer\snakeGamer.cpp(89,50): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
-C:\Users\guilh\source\repos\snakeGamer\snakeGamer.cpp(89,33): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
-C:\Users\guilh\source\repos\snakeGamer\snakeGamer.cpp(90,55): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
-C:\Users\guilh\source\repos\snakeGamer\snakeGamer.cpp(90,38): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
-  snakeGamer.vcxproj -> C:\Users\guilh\source\repos\snakeGamer\x64\Debug\snakeGamer.exe

@@ -4,7 +4,9 @@
 
 int main() {
 	const int wordWidth = 960;
-	const int wordHeight = 540;
+	const int wordHeight = 540; 
+	const int sizegrid = 30;
+
 	InitWindow(wordWidth, wordHeight, "snake Game");
 	SetTargetFPS(60);
 
@@ -13,22 +15,23 @@ int main() {
 	snake.height = 30;
 	snake.color = DARKGREEN;
 
-	snake.x = GetScreenWidth() / 2 - snake.width / 2;
-	snake.y = GetScreenHeight() / 2 - snake.height / 2;
+	snake.x = wordWidth/ 2;
+	snake.y = wordHeight / 2;
 
 	snake.speedX = 0;
 	snake.speedY = 0;
 
 	snake.body.push_back({ (float)snake.x - snake.width, (float)snake.y });
 	snake.body.push_back({ (float)snake.x - snake.width * 2, (float)snake.y });
-	snake.body.push_back({ (float)snake.x - snake.width * 2, (float)snake.y });
-	snake.body.push_back({ (float)snake.x - snake.width * 3, (float)snake.y });
-	snake.body.push_back({ (float)snake.x - snake.width * 4, (float)snake.y });
 
 	Camera2D camera = { 0 };
 	camera.target = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
 	camera.rotation = 0.0f;	
 	camera.zoom = 1.0f;
+
+	float appleX = 200.0f;
+	float appleY = 200.0f;
+	float appleRay = 12.0f;
 
 	int framesCounter = 0;
 
@@ -65,10 +68,27 @@ int main() {
 			framesCounter = 0;
 		}
 
+		Rectangle snakeHead = { (float)snake.x, (float)snake.y, (float)snake.width, (float)snake.height };
+
+		Vector2 appleCore = { appleX, appleY };
+
+		if (CheckCollisionCircleRec(appleCore, appleRay, snakeHead)) {
+			Vector2 lastPiece = snake.body[snake.body.size() - 1];
+			snake.body.push_back(lastPiece);
+
+			int feasibleSchedule = wordWidth / sizegrid;
+			appleX = GetRandomValue(0, feasibleSchedule - 1) * sizegrid;
+
+			int possibleLine = wordHeight / sizegrid;
+			appleY = GetRandomValue(0, possibleLine - 1) * sizegrid;
+		}
+
 		if (IsKeyPressed(KEY_F11)) {
 			int monitor = GetCurrentMonitor();
+			camera.zoom = 1.8f;
 			if (IsWindowFullscreen()) {
 				ToggleFullscreen();
+				camera.zoom = 0.9f;
 				SetWindowSize(wordWidth, wordHeight);
 			}
 			else {
@@ -85,18 +105,27 @@ int main() {
 				
 				DrawRectangleLines(0, 0, wordWidth, wordHeight, DARKGRAY);
 
+				for (int i = 0; i <= wordWidth; i += sizegrid) {
+					DrawLine(i, 0, i, wordHeight, ColorAlpha(DARKGRAY, 0.5f));
+				}
+				for (int i = 0; i <= wordHeight; i += sizegrid) {
+					DrawLine(0, i, wordWidth, i, ColorAlpha(DARKGRAY, 0.5f)); 
+				}
+
 				for (int i = 0; i < snake.body.size(); i++) {
 					DrawRectangle(snake.body[i].x, snake.body[i].y, snake.width, snake.height, GREEN);
 					DrawRectangleLines(snake.body[i].x, snake.body[i].y, snake.width, snake.height, BLACK);
 				}
 
 				DrawRectangle(snake.x, snake.y, snake.width, snake.height, snake.color);
+				DrawCircle(appleX + (sizegrid / 2), appleY + (sizegrid / 2), appleRay, RED);
 
-		EndMode2D();
+				
+				EndMode2D();
 
-		DrawText("PLACA: 0 ", 10, 10, 20, WHITE);
+			DrawText("SCORE: 0 ", 10, 10, 20, WHITE);
 
-	EndDrawing();
+		EndDrawing();
 }
 
 CloseWindow();

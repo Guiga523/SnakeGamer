@@ -18,7 +18,7 @@ int main() {
 	snake.x = wordWidth/ 2;
 	snake.y = wordHeight / 2;
 
-	snake.speedX = 0;
+	snake.speedX = sizegrid;
 	snake.speedY = 0;
 
 	snake.body.push_back({ (float)snake.x - snake.width, (float)snake.y });
@@ -27,60 +27,95 @@ int main() {
 	Camera2D camera = { 0 };
 	camera.target = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
 	camera.rotation = 0.0f;	
-	camera.zoom = 1.0f;
+	camera.zoom = 0.9f;
 
-	float appleX = 200.0f;
-	float appleY = 200.0f;
+	int initialColumns = wordWidth / sizegrid;
+	float appleX = GetRandomValue(0, initialColumns - 1) * sizegrid;
+	int initialRows = wordHeight / sizegrid;
+	float appleY = GetRandomValue(0, initialRows - 1) * sizegrid;
 	float appleRay = 12.0f;
 
 	int framesCounter = 0;
 
+	bool gameOver = false;
+	int screenShaking = 0;
+
+	int score = 0;
+
 	while (!WindowShouldClose()) {
-		if (IsKeyPressed(KEY_W) && snake.speedY == 0) {
-			snake.speedX = 0;
-			snake.speedY = -snake.height;
-		}
-		if (IsKeyPressed(KEY_S) && snake.speedY == 0) {
-			snake.speedX = 0;
-			snake.speedY = snake.height;
-		}
-		if (IsKeyPressed(KEY_A) && snake.speedX == 0) {
-			snake.speedX = -snake.width;
-			snake.speedY = 0;
-		}
-		if (IsKeyPressed(KEY_D) && snake.speedX == 0) {
-			snake.speedX = snake.width;
-			snake.speedY = 0;
-		}
-		framesCounter++;
-
-		if (framesCounter >= 15) {
-			for (int i = snake.body.size() - 1; i > 0; i--) {
-				snake.body[i] = snake.body[i - 1];
+		if (!gameOver) {
+			if (IsKeyPressed(KEY_W) && snake.speedY == 0) {
+				snake.speedX = 0;
+				snake.speedY = -snake.height;
 			}
-			if (snake.body.size() > 0) {
-				snake.body[0] = { (float)snake.x, (float)snake.y };
+			if (IsKeyPressed(KEY_S) && snake.speedY == 0) {
+				snake.speedX = 0;
+				snake.speedY = snake.height;
+			}
+			if (IsKeyPressed(KEY_A) && snake.speedX == 0) {
+				snake.speedX = -snake.width;
+				snake.speedY = 0;
+			}
+			if (IsKeyPressed(KEY_D) && snake.speedX == 0) {
+				snake.speedX = snake.width;
+				snake.speedY = 0;
 			}
 
-			snake.x += snake.speedX;
-			snake.y += snake.speedY;
+			framesCounter++;
 
-			framesCounter = 0;
+			if (framesCounter >= 10) {
+				for (int i = snake.body.size() - 1; i > 0; i--) {
+					snake.body[i] = snake.body[i - 1];
+				}
+				if (snake.body.size() > 0) {
+					snake.body[0] = { (float)snake.x, (float)snake.y };
+				}
+
+				snake.x += snake.speedX;
+				snake.y += snake.speedY;
+
+				if(snake.x < 0 || snake.x >= wordWidth || snake.y < 0 || snake.y >= wordHeight) {
+
+					gameOver = true;
+					screenShaking = 15;
+				}
+				for (int i = 0; i < snake.body.size(); i++) {
+					if (snake.x == snake.body[i].x && snake.y == snake.body[i].y) {
+						gameOver = true;
+						screenShaking = 15;
+					}
+				}
+
+				framesCounter = 0;
+			}
+			Rectangle snakeHead = { (float)snake.x, (float)snake.y, (float)snake.width, (float)snake.height };
+
+			Vector2 appleCore = { appleX, appleY };
+
+			if (CheckCollisionCircleRec(appleCore, appleRay, snakeHead)) {
+				Vector2 lastPiece = snake.body[snake.body.size() - 1];
+				snake.body.push_back(lastPiece);
+
+				int feasibleSchedule = wordWidth / sizegrid;
+				appleX = GetRandomValue(0, feasibleSchedule - 1) * sizegrid;
+
+				int possibleLine = wordHeight / sizegrid;
+				appleY = GetRandomValue(0, possibleLine - 1) * sizegrid;
+
+				score += 10;
+			}
 		}
-
-		Rectangle snakeHead = { (float)snake.x, (float)snake.y, (float)snake.width, (float)snake.height };
-
-		Vector2 appleCore = { appleX, appleY };
-
-		if (CheckCollisionCircleRec(appleCore, appleRay, snakeHead)) {
-			Vector2 lastPiece = snake.body[snake.body.size() - 1];
-			snake.body.push_back(lastPiece);
-
-			int feasibleSchedule = wordWidth / sizegrid;
-			appleX = GetRandomValue(0, feasibleSchedule - 1) * sizegrid;
-
-			int possibleLine = wordHeight / sizegrid;
-			appleY = GetRandomValue(0, possibleLine - 1) * sizegrid;
+		else {
+			if (IsKeyPressed(KEY_ENTER)) {
+				gameOver = false;
+				score = 0;
+				snake.x = wordWidth / 2;
+				snake.y = wordHeight / 2;
+				snake.speedX = sizegrid;
+				snake.speedY = 0;
+				snake.body.clear();
+				snake.body.push_back({ (float)(snake.x - sizegrid),(float)snake.y });
+			}
 		}
 
 		if (IsKeyPressed(KEY_F11)) {
@@ -97,6 +132,16 @@ int main() {
 			}
 		}
 		camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+		Vector2 screenCenter = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+
+		if (screenShaking > 0) {
+			camera.offset.x = screenCenter.x + GetRandomValue(-10, 10);
+			camera.offset.y = screenCenter.y + GetRandomValue(-10, 10);
+			screenShaking--;
+		}
+		else {
+			camera.offset = screenCenter;
+		}
 
 		BeginDrawing();
 			ClearBackground(BLACK);
@@ -123,7 +168,17 @@ int main() {
 				
 				EndMode2D();
 
-			DrawText("SCORE: 0 ", 10, 10, 20, WHITE);
+				DrawText(TextFormat("SCORE: %d", score), 10, 10, 20, WHITE);
+
+			if (gameOver) {
+				const char* txtOver = "GAME OVER!";
+				int sizeOver = MeasureText(txtOver, 60);
+				DrawText(txtOver, (GetScreenWidth() / 2) - (sizeOver / 2), GetScreenHeight() / 2 - 40, 60, RED);
+
+				const char* txtRestart = "Aperte ENTER para tentar de novo";
+				int sizeRest = MeasureText(txtRestart, 20);
+				DrawText(txtRestart, (GetScreenWidth() / 2) - (sizeRest / 2), GetScreenHeight() / 2 + 30, 20, LIGHTGRAY);
+			}
 
 		EndDrawing();
 }

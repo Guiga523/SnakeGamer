@@ -35,3 +35,5 @@ Um clássico jogo da cobrinha (Snake) desenvolvido em C++ utilizando a bibliotec
 2. Clone este repositório no seu computador:
    ```bash
    git clone [https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git](https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git)
+## Download do jogo via MediaFire:
+https://www.mediafire.com/file/m488dawymr5p7tk/SnakeGamer.zip/file

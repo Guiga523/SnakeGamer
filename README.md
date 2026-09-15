@@ -16,19 +16,19 @@ Um clássico jogo da cobrinha (Snake) desenvolvido em C++ utilizando a bibliotec
 * **Sistema de Pontuação:** Acumule pontos a cada maçã consumida.
 * **Prevenção de Bugs Clássicos:** Sistema de trava de direção (input lock) implementado para evitar comandos conflitantes que causam morte instantânea.
 
-## ⌨️ Controles
+##  Controles
 
 * **W, A, S, D:** Movimentam a cobrinha.
 * **F11:** Alterna entre Modo Janela e Tela Cheia.
 * **ENTER:** Reinicia a partida após a tela de Game Over.
 
-## 🛠️ Tecnologias e Ferramentas
+##  Tecnologias e Ferramentas
 
 * **Linguagem:** C++
 * **Biblioteca Gráfica:** Raylib
 * **IDE:** Visual Studio
 
-## 🚀 Como Executar o Projeto Localmente
+##  Como Executar o Projeto Localmente
 
 1. Certifique-se de ter o **Visual Studio** instalado com a carga de trabalho de "Desenvolvimento para Desktop com C++".
 2. Clone este repositório no seu computador:

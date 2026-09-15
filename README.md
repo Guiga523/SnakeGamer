@@ -4,7 +4,7 @@ Um clássico jogo da cobrinha (Snake) desenvolvido em C++ utilizando a bibliotec
 
 ##  Gameplay
 
-![Demonstração do Gameplay do Snake](<img width="426" height="240" alt="Demostração do GameSnaker" src="https://github.com/user-attachments/assets/78f6ebf2-dc51-4709-b702-d7102b44c20b" />
+![Demonstração do Gameplay do Snake](<img width="426" height="240" alt="Demostração do GameSnaker" src="https://github.com/user-attachments/assets/2d5cf70f-e8dc-4a79-a71b-afb57edcc179" />
 )
 
 ##  Funcionalidades

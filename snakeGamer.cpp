@@ -40,25 +40,31 @@ int main() {
 	bool gameOver = false;
 	int screenShaking = 0;
 
+	bool podevirar = true;
+
 	int score = 0;
 
 	while (!WindowShouldClose()) {
 		if (!gameOver) {
-			if (IsKeyPressed(KEY_W) && snake.speedY == 0) {
+			if (IsKeyPressed(KEY_W) && snake.speedY == 0 && podevirar) {
 				snake.speedX = 0;
 				snake.speedY = -snake.height;
+				podevirar = false;
 			}
-			if (IsKeyPressed(KEY_S) && snake.speedY == 0) {
+			if (IsKeyPressed(KEY_S) && snake.speedY == 0 && podevirar) {
 				snake.speedX = 0;
 				snake.speedY = snake.height;
+				podevirar = false;
 			}
-			if (IsKeyPressed(KEY_A) && snake.speedX == 0) {
+			if (IsKeyPressed(KEY_A) && snake.speedX == 0 && podevirar) {
 				snake.speedX = -snake.width;
 				snake.speedY = 0;
+				podevirar = false;
 			}
-			if (IsKeyPressed(KEY_D) && snake.speedX == 0) {
+			if (IsKeyPressed(KEY_D) && snake.speedX == 0 && podevirar) {
 				snake.speedX = snake.width;
 				snake.speedY = 0;
+				podevirar = false;
 			}
 
 			framesCounter++;
@@ -73,6 +79,8 @@ int main() {
 
 				snake.x += snake.speedX;
 				snake.y += snake.speedY;
+
+				podevirar = true;
 
 				if(snake.x < 0 || snake.x >= wordWidth || snake.y < 0 || snake.y >= wordHeight) {
 
@@ -90,7 +98,7 @@ int main() {
 			}
 			Rectangle snakeHead = { (float)snake.x, (float)snake.y, (float)snake.width, (float)snake.height };
 
-			Vector2 appleCore = { appleX, appleY };
+			Vector2 appleCore = { appleX + (sizegrid / 2), appleY + (sizegrid / 2) };
 
 			if (CheckCollisionCircleRec(appleCore, appleRay, snakeHead)) {
 				Vector2 lastPiece = snake.body[snake.body.size() - 1];
